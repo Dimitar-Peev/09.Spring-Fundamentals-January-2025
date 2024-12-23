@@ -1,4 +1,4 @@
-# 09.SpringFundamentals-January-2025
+# 09.Spring-Fundamentals-January-2025
 Contains solutions from the SoftUni course.
 
 <h3>About the course</h3> 
