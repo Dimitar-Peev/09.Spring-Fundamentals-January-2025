@@ -1,12 +1,16 @@
 package com.bonappetit.service;
 
 import com.bonappetit.model.binding.UserLoginBindingModel;
-import com.bonappetit.model.binding.UserRegisterBindingModel;
-import jakarta.validation.Valid;
+import com.bonappetit.model.entity.Recipe;
+import com.bonappetit.model.service.UserServiceModel;
+
+import java.util.Set;
 
 public interface UserService {
 
-    boolean register(@Valid UserRegisterBindingModel userRegisterBindingModel);
+    boolean register(UserServiceModel userServiceModel);
 
-    boolean login(@Valid UserLoginBindingModel data);
+    boolean login(UserLoginBindingModel userLoginBindingModel);
+
+    Set<Recipe> findFavourites(Long id);
 }
