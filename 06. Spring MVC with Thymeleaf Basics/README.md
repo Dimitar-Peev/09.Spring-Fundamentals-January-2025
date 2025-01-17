@@ -1,14 +1,12 @@
-<h3>Spring MVC with Thymeleaf Basics</h3>
+<h3>Table of Content</h3>
 
 <ol>
 	<li> What is Servlet? </li>
 	<li> Spring Controllers </li>
-	
-
-3. Spring MVC
-4. View Technology
-5. Thymeleaf
-6. Key Thymeleaf Functions
-7. Thymeleaf Utility Objects
-8. DispatcherServlet
+	<li> Spring MVC </li>
+	<li> View Technology </li>
+	<li> Thymeleaf </li>
+	<li> Key Thymeleaf Functions </li>
+	<li> Thymeleaf Utility Objects </li>
+	<li> DispatcherServlet </li>
 </ol>
