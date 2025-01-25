@@ -23,31 +23,25 @@
       </a>
     </div>
 
-    <form class="form" th:action="@{/register}" th:method="post" th:object="${registerRequest}">
+    <form class="form" action="/register" method="post" >
 
       <h3>Register Here</h3>
 
       <label for="username">Username</label>
-      <input type="text" placeholder="Username" id="username" th:field="*{username}">
-      <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
-             class="alert-warning">Username error message</p>
+      <input type="text" placeholder="Username" id="username" >
 
       <label for="password">Password</label>
-      <input type="password" placeholder="Password" id="password" th:field="*{password}">
-      <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-         class="alert-warning">Password error message</p>
+      <input type="password" placeholder="Password" id="password" >
 
       <label for="country">Country</label>
-      <select id="country" th:field="*{country}">
-        <option th:each="country : ${T(app.user.model.Country).values()}"
-                th:value="${country}"
-                th:text="${#strings.capitalize(#strings.toLowerCase(country))}">BULGARIA</option>
-<!--         <option value="GERMANY">GERMANY</option> -->
-<!--         <option value="FRANCE">FRANCE</option> -->
+      <select id="country" >
+        <option value="BULGARIA">BULGARIA</option>
+        <option value="GERMANY">GERMANY</option>
+        <option value="FRANCE">FRANCE</option>
       </select>
 
       <button>Register</button>
-      <p class="form-already">Already have an account? <a th:href="@{/login}">Login</a>!</p>
+      <p class="form-already">Already have an account? <a href="/login">Login</a>!</p>
     </form>
 
   </section>
