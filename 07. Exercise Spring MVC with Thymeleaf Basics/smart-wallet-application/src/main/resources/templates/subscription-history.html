@@ -118,8 +118,8 @@
           </td>
           <td>
             <p th:if="${s.status.name() == 'ACTIVE'}" class="status active">ACTIVE</p>
-            <p th:if="${s.status.name() == 'COMPLETED'}" class="status completed">ACTIVE</p>
-            <p th:if="${s.status.name() == 'TERMINATED'}" class="status terminated">ACTIVE</p>
+            <p th:if="${s.status.name() == 'COMPLETED'}" class="status completed">COMPLETED</p>
+            <p th:if="${s.status.name() == 'TERMINATED'}" class="status terminated">TERMINATED</p>
           </td>
           <td th:text="${s.period}" >MONTHLY</td>
           <td th:text="${s.price + ' EUR'}" >49.99</td>
