@@ -1,3 +1,10 @@
+<h2>Spring MVC with Thymeleaf Basics</h2>
+
+<ul>
+	<li> MVC Architecture </li>
+	<li> Introduction to Thymeleaf </li>
+</ul>
+
 <h3>Table of Content</h3>
 
 <ol>
