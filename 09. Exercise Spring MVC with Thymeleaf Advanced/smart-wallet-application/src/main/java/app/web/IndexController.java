@@ -42,7 +42,7 @@ public class IndexController {
     }
 
     @PostMapping("/login")
-    public String loginPost(@Valid LoginRequest loginRequest, BindingResult bindingResult) {
+    public String login(@Valid LoginRequest loginRequest, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
 
@@ -83,7 +83,7 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("home");
 
-        User user = userService.getById(UUID.fromString("50092ea8-f4ba-4f54-8d6c-3b3303bf4464"));
+        User user = userService.getById(UUID.fromString("adcd63d9-9c6e-450d-a090-fc41f89dee42"));
         modelAndView.addObject("user", user);
 
         return modelAndView;
