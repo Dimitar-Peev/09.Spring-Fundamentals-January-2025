@@ -10,10 +10,10 @@ import org.hibernate.validator.constraints.URL;
 @Builder
 public class UserEditRequest {
 
-    @Size(max = 20, message = "First name can't have more than 20 symbols")
+    @Size(max = 20, message = "First name can'''t have more than 20 symbols")
     private String firstName;
 
-    @Size(max = 20, message = "Last name can't have more than 20 symbols")
+    @Size(max = 20, message = "Last name can'''t have more than 20 symbols")
     private String lastName;
 
     @Email(message = "Requires correct email format")
