@@ -9,5 +9,7 @@ public interface UserService {
 
     boolean login(UserServiceModel userServiceModel);
 
+    void logout();
+
     User findUserByUsername(String username);
 }
