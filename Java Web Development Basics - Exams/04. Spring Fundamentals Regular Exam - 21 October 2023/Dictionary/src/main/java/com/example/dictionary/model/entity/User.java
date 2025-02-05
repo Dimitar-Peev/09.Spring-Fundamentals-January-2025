@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -28,5 +29,5 @@ public class User {
     private String email;
 
     @OneToMany(mappedBy = "addedBy", fetch = FetchType.EAGER)
-    private Set<Word> addedWords;
+    private Set<Word> addedWords = new HashSet<>();
 }
