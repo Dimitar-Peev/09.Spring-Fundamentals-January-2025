@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
 
         Optional<User> optionalUser = this.userRepository.findByUsername(userServiceModel.getUsername());
         if (optionalUser.isEmpty()) {
-            log.info("User already exists.");
+            log.info("User not exists.");
             return false;
         }
 
@@ -72,7 +72,4 @@ public class UserServiceImpl implements UserService {
     public void logout() {
         httpSession.invalidate();
     }
-
-
-
 }
