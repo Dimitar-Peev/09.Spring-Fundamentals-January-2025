@@ -1,5 +1,6 @@
 package app.web;
 
+import app.security.RequireAdminRole;
 import app.user.model.User;
 import app.user.service.UserService;
 import app.web.dto.UserEditRequest;
@@ -28,8 +29,8 @@ public class UserController {
         this.userService = userService;
     }
 
-
     @GetMapping
+    @RequireAdminRole
     public ModelAndView getAllUsers() {
 
         List<User> users = userService.getAllUsers();
