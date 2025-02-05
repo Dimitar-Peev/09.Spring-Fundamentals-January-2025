@@ -27,7 +27,7 @@ public class Word {
     private String example;
 
     @Column(nullable = false)
-    private LocalDate date;
+    private LocalDate inputDate;
 
     @ManyToOne(optional = false)
     private Language language;
