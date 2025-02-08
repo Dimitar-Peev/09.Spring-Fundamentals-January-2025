@@ -2,7 +2,7 @@ package app.web.dto;
 
 import lombok.Builder;
 import lombok.Data;
-import org.hibernate.validator.constraints.UUID;
+import java.util.UUID;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
