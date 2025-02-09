@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: Philately
   jpa:
     properties:
       hibernate:
@@ -22,7 +24,7 @@ logging:
       hibernate:
         type:
           descriptor: TRACE
-        SQL: off
+        SQL: DEBUG
       nodeValue: WARN
     blog: WARN
 server:
