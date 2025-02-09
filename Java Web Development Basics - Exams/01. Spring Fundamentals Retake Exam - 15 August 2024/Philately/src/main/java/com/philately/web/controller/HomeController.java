@@ -13,9 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
 
     private final StampService stampService;
+    private final HttpSession httpSession;
 
     @GetMapping(value = {"/index", "/"})
-    public String index(HttpSession httpSession) {
+    public String index() {
         if (httpSession.getAttribute("loggedIn") != null) {
             return "redirect:/home";
         }
@@ -23,7 +24,7 @@ public class HomeController {
     }
 
     @GetMapping("/home")
-    public ModelAndView home(HttpSession httpSession){
+    public ModelAndView home(){
         if (httpSession.getAttribute("loggedIn") == null) {
             return new ModelAndView("redirect:/");
         }
