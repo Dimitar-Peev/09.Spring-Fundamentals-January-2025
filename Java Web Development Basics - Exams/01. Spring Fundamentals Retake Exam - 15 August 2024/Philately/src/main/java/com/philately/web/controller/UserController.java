@@ -28,9 +28,6 @@ public class UserController {
 
     @GetMapping("/register")
     public String register(Model model) {
-        if (httpSession.getAttribute("loggedIn") != null) {
-            return "redirect:/";
-        }
 
         if(!model.containsAttribute("userRegisterBindingModel")){
             model.addAttribute("userRegisterBindingModel", new UserRegisterBindingModel());
@@ -43,10 +40,6 @@ public class UserController {
     @PostMapping("/register")
     public String registerConfirm(@Valid UserRegisterBindingModel userRegisterBindingModel,
                                   BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-
-        if (httpSession.getAttribute("loggedIn") != null) {
-            return "redirect:/";
-        }
 
         boolean passwordMatch = userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword());
         if (bindingResult.hasErrors() || !passwordMatch) {
@@ -70,9 +63,6 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(Model model) {
-        if (httpSession.getAttribute("loggedIn") != null) {
-            return "redirect:/";
-        }
 
         if(!model.containsAttribute("userLoginBindingModel")){
             model.addAttribute("userLoginBindingModel", new UserLoginBindingModel());
@@ -84,10 +74,6 @@ public class UserController {
     @PostMapping("/login")
     public String loginConfirm(@Valid UserLoginBindingModel userLoginBindingModel,
                                BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-
-        if (httpSession.getAttribute("loggedIn") != null) {
-            return "redirect:/";
-        }
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("userLoginBindingModel", userLoginBindingModel);
@@ -109,11 +95,9 @@ public class UserController {
 
     @GetMapping("/logout")
     public String logout() {
-        if (httpSession.getAttribute("loggedIn") == null) {
-            return "redirect:/";
-        }
 
         this.userService.logout();
+
         return "redirect:/";
     }
 
