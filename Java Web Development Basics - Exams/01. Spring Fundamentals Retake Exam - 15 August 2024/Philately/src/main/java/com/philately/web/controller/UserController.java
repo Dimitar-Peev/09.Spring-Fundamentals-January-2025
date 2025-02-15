@@ -5,7 +5,6 @@ import com.philately.model.binding.UserLoginBindingModel;
 import com.philately.model.binding.UserRegisterBindingModel;
 import com.philately.model.service.UserServiceModel;
 import com.philately.service.UserService;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -24,7 +23,6 @@ public class UserController {
 
     private final UserService userService;
     private final ModelMapper modelMapper;
-    private final HttpSession httpSession;
 
     @GetMapping("/register")
     public String register(Model model) {
