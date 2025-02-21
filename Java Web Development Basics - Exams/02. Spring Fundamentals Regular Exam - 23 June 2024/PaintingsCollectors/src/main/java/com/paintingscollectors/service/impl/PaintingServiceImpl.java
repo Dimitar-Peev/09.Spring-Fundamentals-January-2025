@@ -71,8 +71,32 @@ public class PaintingServiceImpl implements PaintingService {
     }
 
     @Override
-    public void remove(String id) {
-        this.paintingRepository.deleteById(id);
+    @Transactional
+    public void remove(String paintingId, String username) {
+        Painting painting = paintingRepository.findById(paintingId)
+                .orElseThrow(() -> new RuntimeException("Painting not found"));
+
+        if (!painting.getOwner().getUsername().equals(username)) {
+            throw new RuntimeException("User is not the owner of this painting");
+        }
+
+        if (painting.isFavorite()) {
+            throw new RuntimeException("Cannot delete painting that is in someone's favorites");
+        }
+
+        List<User> usersWhoRated = userRepository.findAllByRatedPaintingsContaining(painting);
+
+        for (User user : usersWhoRated) {
+            user.getRatedPaintings().remove(painting);
+            userRepository.save(user);
+        }
+
+        painting.setOwner(null);
+        painting.setStyle(null);
+
+        paintingRepository.save(painting);
+
+        paintingRepository.delete(painting);
         log.info("Successfully removed painting from my collection.");
     }
 
@@ -211,5 +235,4 @@ public class PaintingServiceImpl implements PaintingService {
         paint.setStyle(paintingServiceModel.getStyle().name());
         return paint;
     }
-
 }
