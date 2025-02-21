@@ -57,7 +57,8 @@ public class PaintingController {
     @DeleteMapping("/remove/{id}")
     public String remove(@PathVariable String id) {
 
-        paintingService.remove(id);
+        String username = httpSession.getAttribute("username").toString();
+        paintingService.remove(id, username);
 
         return "redirect:/home";
     }
