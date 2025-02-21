@@ -11,7 +11,7 @@ public interface PaintingService {
 
     List<PaintingServiceModel> getMyPaintings(String username);
 
-    void remove(String id);
+    void remove(String id, String username);
 
     List<PaintingServiceModel> getOtherPaintings(String username);
 
