@@ -5,18 +5,20 @@ import com.example.dictionary.model.service.UserServiceModel;
 import com.example.dictionary.repository.UserRepository;
 import com.example.dictionary.service.UserService;
 import jakarta.servlet.http.HttpSession;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Slf4j
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+
+    private final static Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
@@ -30,7 +32,7 @@ public class UserServiceImpl implements UserService {
                 this.userRepository.findByUsernameOrEmail(userServiceModel.getUsername(), userServiceModel.getEmail());
 
         if (existingUser.isPresent()) {
-            log.info("Failed to create user account. User already exists.");
+            log.warn("Failed to create user account. User already exists.");
            return false;
         } else {
             User user = this.modelMapper.map(userServiceModel, User.class);
@@ -46,13 +48,13 @@ public class UserServiceImpl implements UserService {
 
         Optional<User> optionalUser = this.userRepository.findByUsername(userServiceModel.getUsername());
         if (optionalUser.isEmpty()) {
-            log.info("User not exists.");
+            log.warn("User not exists.");
             return false;
         }
 
         boolean passMatch = this.passwordEncoder.matches(userServiceModel.getPassword(), optionalUser.get().getPassword());
         if (!passMatch) {
-            log.info("Password does not match.");
+            log.warn("Password does not match.");
             return false;
         }
 
