@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -25,9 +24,10 @@ public class UserController {
 
     private final UserService userService;
     private final ModelMapper modelMapper;
+    private final HttpSession httpSession;
 
     @GetMapping("/register")
-    public String register(Model model, HttpSession httpSession) {
+    public String register(Model model) {
 
         if (httpSession.getAttribute("loggedIn") != null) {
             return "redirect:/home";
@@ -42,8 +42,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerConfirm(@Valid @ModelAttribute("userRegisterBindingModel") UserRegisterBindingModel userRegisterBindingModel,
-                                  BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpSession httpSession) {
+    public String registerConfirm(@Valid UserRegisterBindingModel userRegisterBindingModel,
+                                  BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if (httpSession.getAttribute("loggedIn") != null) {
             return "redirect:/home";
@@ -69,7 +69,7 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(Model model, HttpSession httpSession) {
+    public String login(Model model) {
         if (httpSession.getAttribute("loggedIn") != null) {
             return "redirect:/home";
         }
@@ -82,8 +82,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginConfirm(@Valid @ModelAttribute("userLoginBindingModel") UserLoginBindingModel userLoginBindingModel,
-                               BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpSession httpSession) {
+    public String loginConfirm(@Valid UserLoginBindingModel userLoginBindingModel,
+                               BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if (httpSession.getAttribute("loggedIn") != null) {
             return "redirect:/home";
@@ -107,8 +107,8 @@ public class UserController {
         return "redirect:/home";
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpSession httpSession) {
+    @PostMapping("/logout")
+    public String logout() {
 
         if (httpSession.getAttribute("loggedIn") == null) {
             return "redirect:/";
