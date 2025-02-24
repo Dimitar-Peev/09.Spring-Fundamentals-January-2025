@@ -76,3 +76,16 @@ footer {
 .badge-secondary{
     background-color: #720a75;
 }
+
+.logout {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.remove {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
