@@ -2,9 +2,7 @@ package com.example.dictionary.web.controller;
 
 import com.example.dictionary.constant.Constants;
 import com.example.dictionary.model.binding.WordAddBindingModel;
-import com.example.dictionary.model.service.UserServiceModel;
 import com.example.dictionary.model.service.WordServiceModel;
-import com.example.dictionary.service.UserService;
 import com.example.dictionary.service.WordService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -23,11 +21,10 @@ public class WordController {
 
     private final WordService wordService;
     private final ModelMapper modelMapper;
-    private final UserService userService;
-
+    private final HttpSession httpSession;
 
     @GetMapping("/add")
-    public String add(HttpSession httpSession, Model model) {
+    public String add(Model model) {
         if (httpSession.getAttribute("loggedIn") == null) {
             return "redirect:/";
         }
@@ -39,10 +36,9 @@ public class WordController {
         return "word-add";
     }
 
-
     @PostMapping("/add")
-    public String addConfirm(@Valid @ModelAttribute("wordAddBindingModel") WordAddBindingModel wordAddBindingModel,
-                             BindingResult bindingResult, RedirectAttributes redirectAttributes, HttpSession httpSession){
+    public String addConfirm(@Valid WordAddBindingModel wordAddBindingModel,
+                             BindingResult bindingResult, RedirectAttributes redirectAttributes){
 
         if (httpSession.getAttribute("loggedIn") == null) {
             return "redirect:/";
@@ -56,7 +52,6 @@ public class WordController {
 
         WordServiceModel wordServiceModel = this.modelMapper.map(wordAddBindingModel, WordServiceModel.class);
 
-        // save in DB
         String username = httpSession.getAttribute("username").toString();
         boolean success = this.wordService.add(wordServiceModel,  username);
 
@@ -68,8 +63,8 @@ public class WordController {
         return "redirect:/home";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteWord(@PathVariable String id, HttpSession httpSession) {
+    @DeleteMapping("/delete/{id}")
+    public String deleteWord(@PathVariable String id) {
         if (httpSession.getAttribute("loggedIn") == null) {
             return "redirect:/";
         }
@@ -80,7 +75,7 @@ public class WordController {
     }
 
     @GetMapping("/remove-all")
-    public String removeAll(HttpSession httpSession) {
+    public String removeAll() {
         if (httpSession.getAttribute("loggedIn") == null) {
             return "redirect:/";
         }
