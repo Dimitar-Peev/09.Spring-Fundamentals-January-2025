@@ -36,4 +36,8 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "song_id")
     )
     private Set<Song> playlist = new HashSet<>();
+
+    public void addToPlaylist(Song song) {
+        this.playlist.add(song);
+    }
 }
