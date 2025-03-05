@@ -10,7 +10,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "recipes")
-public class Recipe extends BaseEntity{
+public class Recipe {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @Column(nullable = false)
     private String name;
