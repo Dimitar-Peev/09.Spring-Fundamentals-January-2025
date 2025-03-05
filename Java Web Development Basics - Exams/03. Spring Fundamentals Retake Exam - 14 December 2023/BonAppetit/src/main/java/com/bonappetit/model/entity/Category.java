@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -13,7 +14,11 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "categories")
-public class Category extends BaseEntity{
+public class Category {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @Column(nullable = false, unique = true)
     @Enumerated(EnumType.STRING)
@@ -22,5 +27,5 @@ public class Category extends BaseEntity{
     private String description;
 
     @OneToMany(mappedBy = "category")
-    private List<Recipe> recipes;
+    private List<Recipe> recipes = new ArrayList<>();
 }
