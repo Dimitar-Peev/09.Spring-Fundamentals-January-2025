@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class RecipeViewModel {
 
-    private long id;
+    private String id;
     private String name;
     private String ingredients;
 
