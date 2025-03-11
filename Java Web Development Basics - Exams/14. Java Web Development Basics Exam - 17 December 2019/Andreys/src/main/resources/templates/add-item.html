@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <th:block th:insert="~{fragments/head}"></th:block>
+<body>
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <main>
+        <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add Item</span></h1>
+        <hr class="hr-3"/>
+        <form class="mx-auto w-25 bg-blur" th:action="@{/items/add}" th:method="post" th:object="${itemAddBindingModel}">
+            <div class="form-group">
+                <div class="text-white label-holder d-flex justify-content-center">
+                    <label for="name" class="h4 mb-2">Name</label>
+                </div>
+                <input
+                        type="text"
+                        class="form-control"
+                        id="name"
+                        name="name"
+                        th:field="*{name}"
+                        th:errorclass="'bg-danger'"
+                />
+                <small th:each="error: ${#fields.errors('name')}" th:text="${error}" class="bg-dark text-danger">Incorrect username!</small>
+            </div>
+            <div class="form-group">
+                <div class="text-white label-holder d-flex justify-content-center">
+                    <label for="description" class="h4 mb-2">Description</label>
+                </div>
+                <input
+                        type="text"
+                        class="form-control"
+                        id="description"
+                        name="description"
+                        th:field="*{description}"
+                        th:errorclass="'bg-danger'"
+                />
+                <small th:each="error: ${#fields.errors('description')}" th:text="${error}" class="bg-dark text-danger">Incorrect username!</small>
+            </div>
+            <div class="form-group">
+                <div class="text-white label-holder d-flex justify-content-center">
+                    <label for="category" class="h4 mb-2">Category</label>
+                </div>
+                <select class="browser-default custom-select"
+                        id="category"
+                        name="category"
+                        th:field="*{category}"
+                        th:errorclass="'bg-danger'">
+                    <option value="">Select category</option>
+                    <option th:each="category : ${T(com.example.andreys.model.entity.CategoryName).values()}"
+                            th:text="${category}"
+                            th:value="${category}"
+                            value="SHIRT">Shirt
+                    </option>
+                    <!--                         <option value="">Select category</option> -->
+                    <!--                         <option value="SHIRT">Shirt</option> -->
+                    <!--                         <option value="DENIM">Denim</option> -->
+                    <!--                         <option value="SHORTS">Shorts</option> -->
+                    <!--                         <option value="JACKET">Jacket</option> -->
+                </select>
+                <small th:each="error: ${#fields.errors('category')}" th:text="${error}" class="bg-dark text-danger">Incorrect username!</small>
+            </div>
+            <div class="form-group">
+                <div class="text-white label-holder d-flex justify-content-center">
+                    <label for="gender" class="h4 mb-2">Gender</label>
+                </div>
+                <select class="browser-default custom-select"
+                        id="gender"
+                        name="gender"
+                        th:field="*{gender}"
+                        th:errorclass="'bg-danger'"
+                >
+                    <option value="">Select gender</option>
+                    <option value="MALE">Male</option>
+                    <option value="FEMALE">Female</option>
+                </select>
+                <small th:each="error: ${#fields.errors('gender')}" th:text="${error}" class="bg-dark text-danger">Incorrect username!</small>
+            </div>
+            <div class="form-group">
+                <div class="text-white label-holder d-flex justify-content-center">
+                    <label for="price" class="h4 mb-2">Price</label>
+                </div>
+                <input
+                        type="number"
+                        class="form-control"
+                        id="price"
+                        name="price"
+                        th:field="*{price}"
+                        th:errorclass="'bg-danger'"
+                />
+                <small th:each="error: ${#fields.errors('price')}" th:text="${error}" class="bg-dark text-danger">Incorrect username!</small>
+            </div>
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="btn btn-secondary text-white mb-3">Add Product</button>
+            </div>
+        </form>
+    </main>
+
+    <th:block th:insert="~{fragments/footer}"></th:block>
+</body>
+</html>
