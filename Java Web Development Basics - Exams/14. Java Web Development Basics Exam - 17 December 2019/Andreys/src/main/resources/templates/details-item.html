@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <th:block th:insert="~{fragments/head}"></th:block>
+<body>
+    <th:block th:insert="~{fragments/header}"></th:block>
+    <main>
+        <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Details</span></h1>
+        <hr class="my-3"/>
+        <div class="container-fluid bg-blur w-50">
+            <div class="row justify-content-center">
+                <div th:object="${item}" class="w-50 justify-content-center">
+                    <div class="label mt-2">
+                        <h2 th:text="*{name}" class="text-white text-center">Buzzer</h2>
+                    </div>
+                    <div class="label mt-4">
+                        <img library="img" th:src="*{imageUrl}" class="img-thumbnail" width="200" height="200"/>
+                        <h3 th:text="*{description}" class="text-white text-center">80% silk</h3>
+                    </div>
+                    <div class="label mt-4">
+                        <h3 th:text="*{price}" class="text-white text-center mb-3">65.00</h3>
+                    </div>
+                    <form th:action="@{/items/delete/{id}(id = *{id})}" th:method="DELETE" class="button-holder d-flex justify-content-center">
+                        <button type="submit" class="btn btn-danger text-white mb-3">Delete Product</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <th:block th:insert="~{fragments/footer}"></th:block>
+</body>
+</html>
