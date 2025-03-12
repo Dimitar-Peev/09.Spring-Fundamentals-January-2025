@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <th:block th:insert="~{fragments/head}"></th:block>
+    <body>
+        <!--         <header xmlns:h="http://xmlns.jcp.org/jsf/html"> -->
+        <!--             <nav class="navbar navbar-expand-lg navbar-light bg-dark"> -->
+        <!--                     <a class="nav-link text-white active h5" href="/home">Andrey's</a> -->
+        <!--                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" -->
+        <!--                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> -->
+        <!--                     <span class="navbar-toggler-icon"></span> -->
+        <!--                 </button> -->
+        <!--                 <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav"> -->
+        <!--                     <ul class="navbar-nav row"> -->
+        <!--                         <li class="col-md-4"> -->
+        <!--                                 <a class="nav-link text-white active h5" href="/home">Home</a> -->
+        <!--                         </li> -->
+        <!--                         <li class="col-md-4"> -->
+        <!--                                 <a class="nav-link text-white active h5" href="/products/add">Add Product</a> -->
+        <!--                         </li> -->
+        <!--                         <li class="col-md-4"> -->
+        <!--                                 <a class="nav-link text-white active h5" href="/logout">Logout</a> -->
+        <!--                         </li> -->
+        <!--                     </ul> -->
+        <!--                 </div> -->
+        <!--             </nav> -->
+        <!--         </header> -->
+        <th:block th:insert="~{fragments/header}"></th:block>
+        <main>
+            <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Items</span></h1>
+            <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark" th:text="|Total count of items: ${items.size()}|"></span></h1>
+            <hr class="hr-3"/>
+            <div th:each="item : ${items}" th:object="${item}" class="bg-blur container w-50">
+                <div class="row mb-4 d-flex flex-column text-center">
+                    <a th:href="@{/items/details/{id}(id = *{id})}">
+<!--                         <img class="card-img-top" th:src="'/img/' + *{gender} + '-' + *{category.name} + '.jpg'" alt="image"> -->
+                        <img library="img" th:src="*{imageUrl}" class="img-thumbnail" width="200" height="200"/>
+                    </a>
+                    <h5 th:text="*{name}" class="text-center">Buzzer</h5>
+                    <h2 th:text="*{price}" class="text-center">65.00</h2>
+                </div>
+            </div>
+        </main>
+        <th:block th:insert="~{fragments/footer}"></th:block>
+<!--         <span style="visibility: hidden">...</span> -->
+<!--         <ui:include src="templates/footer.xhtml"/> -->
+    </body>
+</html>
