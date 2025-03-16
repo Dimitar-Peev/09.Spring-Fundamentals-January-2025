@@ -1,11 +1,16 @@
 package coffeeshop.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class User {
@@ -29,5 +34,5 @@ public class User {
     private String email;
 
     @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
-    private Set<Order> orders;
+    private Set<Order> orders = new HashSet<>();
 }
