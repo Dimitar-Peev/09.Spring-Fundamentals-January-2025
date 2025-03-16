@@ -1,6 +1,7 @@
 package coffeeshop.model.binding;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -22,7 +23,7 @@ public class UserRegisterBindingModel {
     @Size(min = 5, max = 20, message = "Last name length must be between 5 and 20 characters.")
     private String lastName;
 
-    @NotNull
+    @NotBlank(message = "Enter valid email address")
     @Email(message = "Enter valid email address")
     private String email;
 
