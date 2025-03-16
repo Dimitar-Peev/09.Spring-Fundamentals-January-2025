@@ -4,6 +4,7 @@ import coffeeshop.model.binding.UserLoginBindingModel;
 import coffeeshop.model.binding.UserRegisterBindingModel;
 import coffeeshop.model.service.UserServiceModel;
 import coffeeshop.service.UserService;
+import coffeeshop.util.CurrentUser;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -23,6 +24,7 @@ public class UserController {
 
     private final UserService userService;
     private final ModelMapper modelMapper;
+    private final CurrentUser currentUser;
 
     @ModelAttribute
     public UserRegisterBindingModel userRegisterBindingModel() {
@@ -31,6 +33,10 @@ public class UserController {
 
     @GetMapping("/register")
     public String register() {
+
+        if (currentUser.isLogged()) {
+            return "redirect:/home";
+        }
 
         return "register";
     }
@@ -60,6 +66,10 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(Model model) {
+
+        if (currentUser.isLogged()) {
+            return "redirect:/home";
+        }
 
         if (!model.containsAttribute("isFound")) {
             model.addAttribute("isFound", true);
