@@ -34,7 +34,7 @@ public class HomeController {
     public String index(Model model) {
 
         if (!currentUser.isLogged()) {
-            return "index";
+            return "redirect:/";
         }
 
         List<OrderViewModel> orders = orderService.findAllOrdersOrderByPriceDesc();
