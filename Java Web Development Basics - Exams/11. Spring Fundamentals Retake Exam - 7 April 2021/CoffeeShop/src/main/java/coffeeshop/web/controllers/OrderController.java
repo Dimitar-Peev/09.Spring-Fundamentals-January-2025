@@ -3,6 +3,7 @@ package coffeeshop.web.controllers;
 import coffeeshop.model.binding.OrderAddBindingModel;
 import coffeeshop.model.service.OrderServiceModel;
 import coffeeshop.service.OrderService;
+import coffeeshop.util.CurrentUser;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -18,6 +19,7 @@ public class OrderController {
 
     private final OrderService orderService;
     private final ModelMapper modelMapper;
+    private final CurrentUser currentUser;
 
     @ModelAttribute
     public OrderAddBindingModel orderAddBindingModel(){
@@ -26,6 +28,11 @@ public class OrderController {
 
     @GetMapping("/add")
     public String add() {
+
+        if (!currentUser.isLogged()) {
+            return "redirect:/";
+        }
+
         return "order-add";
     }
 
@@ -47,6 +54,10 @@ public class OrderController {
 
     @GetMapping("/ready/{id}")
     public String ready(@PathVariable String id){
+
+        if (!currentUser.isLogged()) {
+            return "redirect:/";
+        }
 
         orderService.readyOrder(id);
 
