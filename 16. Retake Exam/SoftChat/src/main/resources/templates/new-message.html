@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{fragments/commons::head}">
+        <title>Add Story</title>
+    </head>
+    <body>
+        <main>
+            <section class="section full-height">
+
+                <form class="welcome login" th:method="POST" th:action="@{/messages/new-message}" th:object="${createNewMessage}">
+
+                    <h3>New message</h3>
+                    <div class="form-group">
+                        <div class="label-holder text-white d-flex justify-content-center">
+                            <label for="receiver" class="h3 mb-2">Receiver</label>
+                        </div>
+                        <select id="receiver" name="receiver" th:field="*{receiver}">
+                            <option value="">Select receiver</option>
+                            <option th:each="u : ${users}" th:value="${u.username}" th:text="${u.username}"
+                                    th:if="${u.getId()} != ${session.user_id}">Select receiver</option>
+                        </select>
+                        <p th:if="${#fields.hasErrors('receiver')}" th:errors="*{receiver}" class="text-light">Error Text Here</p>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="label-holder text-white d-flex justify-content-center">
+                            <label for="subject" class="h3 mb-2">Subject</label>
+                        </div>
+                        <input type="text" placeholder="Subject" id="subject" name="subject" th:field="*{subject}">
+                        <p th:if="${#fields.hasErrors('subject')}" th:errors="*{subject}" class="text-light">Error Text Here</p>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="label-holder text-white d-flex justify-content-center">
+                            <label for="content" class="h3 mb-2">Content</label>
+                        </div>
+                        <textarea type="text" placeholder="Content" id="content" name="content"
+                                  th:field="*{content}"></textarea>
+                        <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="text-light">Error Text Here</p>
+                    </div>
+
+                    <button type="submit">Send</button>
+
+                </form>
+            </section>
+        </main>
+        <footer th:replace="~{fragments/commons::footer}"></footer>
+    </body>
+</html>
