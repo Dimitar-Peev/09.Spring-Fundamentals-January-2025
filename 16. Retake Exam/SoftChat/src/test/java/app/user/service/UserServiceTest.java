@@ -82,4 +82,27 @@ public class UserServiceTest {
         assertThrows(RuntimeException.class, () -> userService.register(registerRequest));
     }
 
+    @Test
+    void givenNonExistingUsername_whenRegister_thenSaveToDatabase() {
+
+        // Given
+        RegisterRequest registerRequest = new RegisterRequest();
+        registerRequest.setUsername("Dimitar");
+        registerRequest.setPassword("123456");
+        registerRequest.setEmail("dimitar@abv.bg");
+
+        User user = User.builder()
+                .id(UUID.randomUUID())
+                .build();
+
+        when(userRepository.findByUsername(registerRequest.getUsername())).thenReturn(Optional.empty());
+        when(userRepository.save(any())).thenReturn(user);
+
+        // When
+        userService.register(registerRequest);
+
+        // Then
+        verify(userRepository, times(1)).save(any(User.class));
+    }
+
 }
