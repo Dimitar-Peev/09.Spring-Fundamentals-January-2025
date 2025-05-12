@@ -1,5 +1,6 @@
 package app.user.service;
 
+import app.user.model.User;
 import app.user.repository.UserRepository;
 import app.web.dto.UserEditRequest;
 import org.junit.jupiter.api.Test;
@@ -12,8 +13,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceUnitTest {
@@ -37,6 +39,32 @@ public class UserServiceUnitTest {
 
         // When & Then
         assertThrows(RuntimeException.class, () -> userService.editUserDetails(userId, dto));
+    }
+
+
+    @Test
+    void givenExistingUser_whenEditTheirProfile_thenChangeTheirDetailsAndSaveToDatabase() {
+
+        // Given
+        UUID userId = UUID.randomUUID();
+        UserEditRequest dto = UserEditRequest.builder()
+                .firstName("Dimitar")
+                .lastName("Peev")
+                .email("peev@abv.bg")
+                .profilePicture("www.image.com")
+                .build();
+        User user = User.builder().build();
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+
+        // When
+        userService.editUserDetails(userId, dto);
+
+        // Then
+        assertEquals("Dimitar", user.getFirstName());
+        assertEquals("Peev", user.getLastName());
+        assertEquals("peev@abv.bg", user.getEmail());
+        assertEquals("www.image.com", user.getProfilePicture());
+        verify(userRepository, times(1)).save(user);
     }
 
 }
