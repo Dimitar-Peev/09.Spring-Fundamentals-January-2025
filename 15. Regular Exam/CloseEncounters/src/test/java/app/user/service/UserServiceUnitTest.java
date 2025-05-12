@@ -2,6 +2,7 @@ package app.user.service;
 
 import app.user.model.User;
 import app.user.repository.UserRepository;
+import app.web.dto.RegisterRequest;
 import app.web.dto.UserEditRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -65,6 +66,21 @@ public class UserServiceUnitTest {
         assertEquals("peev@abv.bg", user.getEmail());
         assertEquals("www.image.com", user.getProfilePicture());
         verify(userRepository, times(1)).save(user);
+    }
+
+    @Test
+    void givenExistingUsername_whenRegister_thenExceptionIsThrown() {
+
+        // Given
+        RegisterRequest registerRequest = new RegisterRequest();
+        registerRequest.setUsername("Dimitar");
+        registerRequest.setPassword("123456");
+
+        when(userRepository.findByUsername(any())).thenReturn(Optional.of(new User()));
+
+        // When & Then
+        assertThrows(RuntimeException.class, () -> userService.register(registerRequest));
+        verify(userRepository, never()).save(any());
     }
 
 }
