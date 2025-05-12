@@ -83,4 +83,26 @@ public class UserServiceUnitTest {
         verify(userRepository, never()).save(any());
     }
 
+    @Test
+    void givenNonExistingUsername_whenRegister_thenSaveToDatabase() {
+
+        // Given
+        RegisterRequest registerRequest = new RegisterRequest();
+        registerRequest.setUsername("Dimitar");
+        registerRequest.setPassword("123456");
+
+        User user = User.builder()
+                .id(UUID.randomUUID())
+                .build();
+
+        when(userRepository.findByUsername(registerRequest.getUsername())).thenReturn(Optional.empty());
+        when(userRepository.save(any())).thenReturn(user);
+
+        // When
+        userService.register(registerRequest);
+
+        // Then
+        verify(userRepository, times(1)).save(any(User.class));
+    }
+
 }
