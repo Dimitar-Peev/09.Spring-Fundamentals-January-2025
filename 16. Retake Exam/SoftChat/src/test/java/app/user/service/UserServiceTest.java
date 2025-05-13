@@ -146,4 +146,19 @@ public class UserServiceTest {
         assertEquals(user.getUsername(), loggedInUser.getUsername());
     }
 
+    @Test
+    void login_ShouldThrowException_WhenUserNotFound() {
+
+        // Given
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setUsername("test_user2");
+        loginRequest.setPassword("password123");
+
+        when(userRepository.findByUsername(loginRequest.getUsername())).thenReturn(Optional.empty());
+
+        // When & Then
+        assertThrows(RuntimeException.class, () -> userService.login(loginRequest));
+    }
+
+
 }
