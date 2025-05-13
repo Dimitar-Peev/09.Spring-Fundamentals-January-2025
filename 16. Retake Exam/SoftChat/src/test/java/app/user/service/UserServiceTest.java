@@ -181,4 +181,17 @@ public class UserServiceTest {
         assertThrows(RuntimeException.class, () -> userService.login(loginRequest));
     }
 
+    @Test
+    void findByUsername_ShouldReturnUser_WhenExists() {
+
+        // Given
+        User user = new User();
+        when(userRepository.findByUsername("user")).thenReturn(Optional.of(user));
+
+        // When
+        User result = userService.findByUsername("user");
+
+        // Then
+        assertEquals(user, result);
+    }
 }
