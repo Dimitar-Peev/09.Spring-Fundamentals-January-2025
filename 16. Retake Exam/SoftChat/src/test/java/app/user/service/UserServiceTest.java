@@ -160,5 +160,25 @@ public class UserServiceTest {
         assertThrows(RuntimeException.class, () -> userService.login(loginRequest));
     }
 
+    @Test
+    void login_ShouldThrowException_WhenPasswordIsIncorrect() {
+
+        // Given
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setUsername("test_user2");
+        loginRequest.setPassword("password123");
+
+        User user = User.builder()
+                .id(UUID.randomUUID())
+                .username("test_user1")
+                .password("encodedPassword")
+                .build();
+
+        when(userRepository.findByUsername(loginRequest.getUsername())).thenReturn(Optional.of(user));
+        when(passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())).thenReturn(false);
+
+        // When & Then
+        assertThrows(RuntimeException.class, () -> userService.login(loginRequest));
+    }
 
 }
