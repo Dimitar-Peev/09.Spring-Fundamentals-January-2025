@@ -2,6 +2,7 @@ package app.user.service;
 
 import app.user.model.User;
 import app.user.repository.UserRepository;
+import app.web.dto.LoginRequest;
 import app.web.dto.RegisterRequest;
 import app.web.dto.UserEditRequest;
 import org.junit.jupiter.api.Test;
@@ -16,8 +17,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -119,6 +119,31 @@ public class UserServiceTest {
 
         // Then
         assertThat(users).hasSize(2);
+    }
+
+    @Test
+    void login_ShouldReturnUser_WhenCredentialsAreValid() {
+
+        // Given
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setUsername("test_user2");
+        loginRequest.setPassword("password123");
+
+        User user = User.builder()
+                .id(UUID.randomUUID())
+                .username("test_user1")
+                .password("encodedPassword")
+                .build();
+
+        when(userRepository.findByUsername(loginRequest.getUsername())).thenReturn(Optional.of(user));
+        when(passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())).thenReturn(true);
+
+        // When
+        User loggedInUser = userService.login(loginRequest);
+
+        // Then
+        assertNotNull(loggedInUser);
+        assertEquals(user.getUsername(), loggedInUser.getUsername());
     }
 
 }
